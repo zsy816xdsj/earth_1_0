@@ -123,12 +123,6 @@ abstract class animal extends organism{
      target.be_eaten();
    }
  }
- void reproduceing(earth target){
-   if(dist(pos.x,pos.y,target.pos.x,target.pos.y) <= 20){
-     onTheWayToMate = false;
-     h_animal.add(new herbivore(random(step_min,step_max),random(pos.x-step_max,pos.x+step_max),random(pos.y-step_max,pos.y+step_max)));
-   }
- }
  void be_eaten(){
     life = life/2;
  }
@@ -139,6 +133,12 @@ class herbivore extends animal{
   herbivore(float s,float x,float y){
     super(s,x,y);
     topspeed = 4;
+  }
+  void reproduceing(earth target){
+   if(dist(pos.x,pos.y,target.pos.x,target.pos.y) <= 20){
+     onTheWayToMate = false;
+     h_animal.add(new herbivore(random(step_min,step_max),random(pos.x-step_max,pos.x+step_max),random(pos.y-step_max,pos.y+step_max)));
+   }
   }
   void update(){
     timeisgoing();
@@ -155,7 +155,7 @@ class herbivore extends animal{
             if(indanger()){
                 moveaway(enemy);
             }else{
-              if(thirthty<=1200){
+              if(thirthty<=1200){//drinking
                 if(onTheWayToDrink){
                   moveto(water);
                   drinking(water);
@@ -165,7 +165,7 @@ class herbivore extends animal{
                   onTheWayToFood = false;
                 }
               }
-              if(!onTheWayToDrink){
+              if(!onTheWayToDrink){//eating
                 if(energy<=1200){
                   if(onTheWayToFood){
                     moveto(food);
@@ -176,9 +176,9 @@ class herbivore extends animal{
                   }
                 }
                 
-                if(!onTheWayToFood){
+                if(!onTheWayToFood){//reproduceing
                   if(life<=400){
-                    some_a = int(random(0,200));
+                    some_a = int(random(0,55));
                     if(some_a==0){
                       if(onTheWayToMate){
                         moveto(mate);
@@ -208,6 +208,12 @@ class preditor extends animal{
   preditor(float s,float x,float y){
     super(s,x,y);
     topspeed = 5;
+  }
+  void reproduceing(earth target){
+   if(dist(pos.x,pos.y,target.pos.x,target.pos.y) <= 20){
+     onTheWayToMate = false;
+     p_animal.add(new preditor(random(step_min,step_max),random(pos.x-step_max,pos.x+step_max),random(pos.y-step_max,pos.y+step_max)));
+   }
   }
   void update(){
     timeisgoing();
@@ -240,7 +246,7 @@ class preditor extends animal{
               }
             }
             if(life<=400&&h_animal.size()>0&&!onTheWayToDrink&&!onTheWayToFood){
-              some_a = int(random(0,200));
+              some_a = int(random(0,150));
               if(some_a==0){
                 if(onTheWayToMate){
                   moveto(mate);

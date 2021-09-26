@@ -21,6 +21,7 @@ class lake extends in_organic{
 }
 
 class weather extends in_organic{
+  int all_w;
   int ran;
   int w_h;
   int w_w;
@@ -30,6 +31,7 @@ class weather extends in_organic{
   //int WHICH_WEATHER;
   weather(float x,float y){
     super(x,y);
+    all_w = 5;
     w_w = int(width/step_max);
     w_h = int(height/step_max);
     Width = width;
@@ -52,10 +54,10 @@ class weather extends in_organic{
   void show(){
     for(int y = 0;y < w_h;y++){
       for(int x = 0;x < w_w;x++){
-        if(weather_grid[x][y]%3 == 1){
+        if(weather_grid[x][y] == 1){
           image(RAIN_IMG,step_max*x,step_max*y);
-        }else if(weather_grid[x][y]%3 == 2){
-          fill(0,120);
+        }else if(weather_grid[x][y] == 2){
+          fill(0,90);
           rect(step_max*x,step_max*y,50,50);
         }//else if(weather_grid[j][i]%4 == 3){
         //  image(LIG_IMG,step_max*j,step_max*i);
@@ -88,16 +90,25 @@ class weather extends in_organic{
         if(neighbours>=5){
           ran = int(random(10));
           if(ran  == 0){
-            weather_grid[x][y] ++;
+            if(weather_grid[x][y]==all_w){
+              weather_grid[x][y] = 0;
+            }else{
+              weather_grid[x][y] ++;
+            }  
           }
         }else if(neighbours<=2){
           ran = int(random(10));
           if(ran == 0){
-            weather_grid[x][y] --;
+            if(weather_grid[x][y]==0){
+              weather_grid[x][y] = all_w;
+            }else{
+              weather_grid[x][y] --;
+            }
           }
         }
       }
     }
     noTint();
+    println(weather_grid[0][0]);
   }
 }
