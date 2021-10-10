@@ -112,3 +112,20 @@ class weather extends in_organic{
     println(weather_grid[0][0]);
   }
 }
+class disaster extends in_organic{
+  disaster(int x,int y){
+    super(x,y);
+  }
+}
+class lighting extends disaster{
+  lighting(int x,int y){
+    super(x,y);
+  }
+  void on_fire(){
+    
+  }
+class fire extends disaster{
+  fire(int x,int y){
+    super(x,y);
+  }
+}
